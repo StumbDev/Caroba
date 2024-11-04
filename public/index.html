@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caroba Playground & Documentation</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-left">
+                <h1>Caroba</h1>
+                <span class="version">v1.0.0</span>
+            </div>
+            <button id="runBtn">Run (Ctrl+Enter)</button>
+        </header>
+        
+        <div class="main-container">
+            <div class="docs-panel">
+                <nav class="docs-nav">
+                    <h2>Documentation</h2>
+                    <ul>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                        <li><a href="#core-syntax">Core Syntax</a></li>
+                        <li><a href="#memory">Memory Management</a></li>
+                        <li><a href="#functions">Built-in Functions</a></li>
+                        <li><a href="#examples">Examples</a></li>
+                    </ul>
+                </nav>
+
+                <div class="docs-content">
+                    <section id="getting-started">
+                        <h2>Getting Started</h2>
+                        <p>Caroba is a C-compatible programming language that simplifies common operations using the @ symbol.</p>
+                        
+                        <div class="note">
+                            <strong>Note:</strong> All Caroba programs must include caroba.h and have a main function.
+                        </div>
+
+                        <pre><code>@include &lt;caroba.h&gt;
+
+@func main() {
+    @print("Hello, World!\n");
+    return 0;
+}</code></pre>
+                    </section>
+
+                    <section id="core-syntax">
+                        <h2>Core Syntax</h2>
+                        
+                        <h3>@include</h3>
+                        <p>Includes a header file using curly braces.</p>
+                        <pre><code>@include {caroba.h}</code></pre>
+
+                        <h3>@var - Variables</h3>
+                        <p>Declares a new variable with type inference.</p>
+                        <pre><code>@var name = "John"    // String type
+@var age = 25       // Number type
+@var type = bruh    // Dynamic type</code></pre>
+
+                        <h3>Special Types</h3>
+                        <div class="function-doc">
+                            <h4>bruh</h4>
+                            <p>Dynamic type that can hold any value.</p>
+                            <pre><code>@var anything = bruh
+anything = "string"  // OK
+anything = 42        // Also OK</code></pre>
+                        </div>
+
+                        <h3>Constants</h3>
+                        <div class="function-doc">
+                            <h4>stfOut</h4>
+                            <p>Standard output prefix for print operations.</p>
+                            <pre><code>@print(stfOut + "Hello")  // Prints: stdout:Hello</code></pre>
+                        </div>
+
+                        <h3>String Concatenation</h3>
+                        <p>Use + operator to concatenate strings.</p>
+                        <pre><code>@var greeting = "Hello " + name
+@print(stfOut + greeting)</code></pre>
+                    </section>
+
+                    <section id="memory">
+                        <h2>Memory Management</h2>
+                        <p>Caroba provides built-in memory management functions.</p>
+
+                        <h3>@alloc</h3>
+                        <p>Allocates memory of specified size.</p>
+                        <pre><code>@var buffer = @alloc(1024);</code></pre>
+
+                        <h3>@free</h3>
+                        <p>Frees allocated memory.</p>
+                        <pre><code>@free(&buffer);</code></pre>
+
+                        <div class="warning">
+                            <strong>Important:</strong> Always free allocated memory to prevent leaks.
+                        </div>
+                    </section>
+
+                    <section id="functions">
+                        <h2>Built-in Functions</h2>
+
+                        <div class="function-doc">
+                            <h3>@print</h3>
+                            <p>Prints formatted text to standard output.</p>
+                            <h4>Syntax:</h4>
+                            <pre><code>@print(format, ...args)</code></pre>
+                            <h4>Example:</h4>
+                            <pre><code>@print("Value: %d\n", 42);</code></pre>
+                        </div>
+
+                        <div class="function-doc">
+                            <h3>@input</h3>
+                            <p>Reads user input with an optional prompt.</p>
+                            <h4>Syntax:</h4>
+                            <pre><code>@var result = @input(prompt)</code></pre>
+                            <h4>Example:</h4>
+                            <pre><code>@var name = @input("Name: ");</code></pre>
+                        </div>
+                    </section>
+
+                    <section id="examples">
+                        <h2>Examples</h2>
+
+                        <h3>Basic Input/Output</h3>
+                        <pre><code>@include &lt;caroba.h&gt;
+
+@func main() {
+    @var name = @input("Name: ");
+    @print("Hello %s!\n", name.value);
+    @free(&name);
+    return 0;
+}</code></pre>
+
+                        <h3>Memory Management</h3>
+                        <pre><code>@include &lt;caroba.h&gt;
+
+@func main() {
+    @var data = @alloc(100);
+    // Use data...
+    @free(&data);
+    return 0;
+}</code></pre>
+                    </section>
+                </div>
+            </div>
+
+            <div class="editor-container">
+                <div class="editor">
+                    <textarea id="code">// Caroba program example
+@include <caroba.h>
+
+@func main() {
+    @var message = @input("Enter a message: ");
+    @print("You entered: %s\n", message.value);
+    @free(&message);
+    return 0;
+}</textarea>
+                </div>
+                
+                <div class="output">
+                    <h3>Output:</h3>
+                    <pre id="output"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/clike/clike.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

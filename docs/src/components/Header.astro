@@ -1,0 +1,54 @@
+---
+import { SITE } from '../config';
+---
+<header>
+<nav>
+<div class="logo">
+<img src="/c@logo.svg" alt="Caroba Logo" width="40" height="40">
+<span>{SITE.title}</span>
+<span class="version">{SITE.version}</span>
+</div>
+<div class="nav-links">
+<a href="/en/getting-started">Docs</a>
+<a href="https://playground.caroba.dev">Playground</a>
+<a href={https://github.com/${SITE.github}}>GitHub</a>
+</div>
+</nav>
+</header>
+<style>
+header {
+background: #1e1e1e;
+padding: 1rem;
+border-bottom: 1px solid #333;
+}
+nav {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.logo {
+display: flex;
+align-items: center;
+gap: 1rem;
+color: #61afef;
+font-size: 1.2rem;
+}
+.version {
+color: #666;
+font-size: 0.9rem;
+}
+.nav-links {
+display: flex;
+gap: 2rem;
+}
+.nav-links a {
+color: #abb2bf;
+text-decoration: none;
+font-size: 1rem;
+}
+.nav-links a:hover {
+color: #61afef;
+}
+</style>

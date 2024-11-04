@@ -1,0 +1,21 @@
+// Caroba program example
+@include <caroba.h>
+
+@func main() {
+    // Dynamic array declaration
+    @var numbers = @alloc(sizeof(int) * 5);
+    
+    // Loop with simplified syntax
+    @for(i in 0..5) {
+        numbers[i] = i * 2;
+    }
+    
+    // Array printing
+    @print("Numbers: ");
+    @for(num in numbers) {
+        @print("%d ", num);
+    }
+    
+    @free(&numbers);
+    return 0;
+} 
